@@ -1,0 +1,69 @@
+{% extends 'admin/base.html' %}
+{% block title %} Edit User {% endblock %}
+{% block content %}
+<link rel="stylesheet" href="/static/css/pages/settings/style.css">
+<div class="columns is-marginless">
+  <div class="column is-paddingless is-avatar">
+    <img src="https://a.{{ domain() }}/{{ user_id }}"
+      onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+  </div>
+  <div class="column is-paddingless flex-vcenter">
+    <h2 class="section-title">
+      <img src="/static/images/flags/{{ country|upper }}.png" class="profile-flag"> {{ username }}
+    </h2>
+    <p class="section-lead">Welcome to {{ appName() }} admin panel!</p>
+  </div>
+</div>
+<form method="POST" action="/admin/update/{{ user_id }}" enctype="multipart/form-data">
+<div class="main-block">
+  <div class="block-content right">
+    <div id="general" class="single-right-block">
+      <div class="right-block-header">
+        Edit User
+      </div>
+      <div class="setting-block-content">
+        <div class="single-block-content">
+          <div class="block-content--left">
+            <div class="field-label is-normal">
+              <label class="label">Username</label>
+            </div>
+          </div>
+          <div class="block-content--right">
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <input class="input" type="text" name="username" value="{{ username }}">
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="single-block-content">
+          <div class="block-content--left">
+            <div class="field-label is-normal">
+              <label class="label">Country</label>
+            </div>
+          </div>
+          <div class="block-content--right">
+            <div class="field-body">
+              <div class="field">
+                <p class="control">
+                  <select class="select" name="country" id="country-select">
+                    <option v-for="(name, code) in countries.flags" :value="code"><% code %> - <% name %></option>
+                  </select>
+                </p>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <button class='button is-primary' type='submit'><span>Save</span><span class='icon is-small'><i class='fas fa-check'></i></span></button>
+      </div>
+    </div>
+  </div>
+</div>
+</form>
+<script src="https://cdn.jsdelivr.net/npm/vue@2.6.14/dist/vue.js"></script>
+<script src="/static/js/asserts/vue-flags.js"></script>
+<script src="/static/js/asserts/vue-country-select.js"></script>
+{% endblock %}

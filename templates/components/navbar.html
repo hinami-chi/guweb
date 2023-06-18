@@ -50,6 +50,7 @@
             {% if session.authenticated %}
             <div class="navbar-item has-dropdown is-hoverable">
                 <a class="navbar-link">
+                    <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}" style="height: 100%; width: auto;" class="avatar-picture" alt="">
                     {{ session.user_data['name'] }}
                 </a>
                 <div class="navbar-dropdown">

@@ -10,7 +10,16 @@
 {% endblock%}
 
 {% block content %}
-
+<div class="columns is-marginless">
+    <div class="column is-paddingless is-avatar">
+      <img src="https://a.{{ domain() }}/{{ session.user_data['id'] }}"
+        onError="this.src='/static/images/avatar_notwork.png';" class="header-avatar">
+    </div>
+    <div class="column is-paddingless flex-vcenter">
+      <h2 class="section-title">Dashboard</h2>
+      <p class="section-lead">Welcome to {{ appName() }} admin panel!</p>
+    </div>
+</div>
 <div class="dashboard" id="dashboard">
     <div class="columns is-marginless is-paddingless">
         <div class="column is-paddingless p-3">
@@ -59,7 +68,7 @@
             </div>
             <div class="blockdata">
                 {% for user in recentusers %}
-                <a href="/u/{{ user.id }}" class="user-block{% if user.priv == 1 %} unverified{% endif %}">
+                <div class="user-block{% if user.priv == 1 %} unverified{% endif %}">
                     <img src="https://a.{{ domain() }}/{{ user.id }}" class="avatar-picture">
                     <div class="user-stats"><span class="user-title">
                         <img src="/static/images/flags/{{ user.country|upper }}.png" class="profile-flag"> {{ user.name }}
@@ -76,13 +85,20 @@
                                 {{ timeago.format((datetime.datetime.fromtimestamp(user.latest_activity)),
                                     (datetime.datetime.now() + datetime.timedelta(seconds = 60 * 3.4))) }}
                                 </span>
-                                <div class="target-button newmaps-color">
-                                    <i class="fa fa-arrow-right"></i>
-                                </div>
+                                <a href="/admin/edit/{{ user.id }}">
+                                    <div class="target-button newmaps-color">
+                                        <i class="fa fa-edit"></i>
+                                    </div>
+                                </a>
+                                <a href="/u/{{ user.id }}">
+                                    <div class="target-button newmaps-color">
+                                        <i class="fa fa-arrow-right"></i>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
-                </a>
+                </div>
                 {% endfor %}
             </div>
         </div>
